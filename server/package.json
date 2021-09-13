@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "mern-server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -15,10 +15,12 @@
     "apollo-server-express": "^2.25.2",
     "bcrypt": "^4.0.1",
     "express": "^4.17.1",
+    "global-agent": "^3.0.0",
     "graphql": "^15.5.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.8",
-    "react-redux": "^7.2.4",
+    "react": "^16.14.0",
+    "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "stripe": "^8.174.0"
   },

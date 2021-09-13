@@ -1,5 +1,5 @@
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer, } = require('apollo-server-express');
 const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas');
@@ -8,6 +8,10 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+// const { ApolloServer, gql } = require('apollo-server');
+const { bootstrap: bootstrapGlobalAgent } = require('global-agent');
+bootstrapGlobalAgent();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -24,7 +28,11 @@ app.use('/images', express.static(path.join(__dirname, '../client/images')));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-}
+};
+
+app.get("/service-worker.js",(req,res) => {
+  res.sendFile(path.resolve(_dirname, "../client/src", "service-worker.js"));
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
@@ -36,3 +44,4 @@ db.once('open', () => {
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
+
